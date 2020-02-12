@@ -1,4 +1,4 @@
-package com.hectordelgado.shopster
+package com.hectordelgado.shopster.model
 
 /**
  *  Shopster
@@ -9,8 +9,11 @@ package com.hectordelgado.shopster
  *  Copyright © 2020 Hector Delgado. All rights reserved.
  */
 data class Product(
+    val productASIN: String,
     val productImage: Int,
+    val productFullDescription: String,
     val productContentDescription: String,
     val productName: String,
     val productRating: Float,
-    val productPrice: Double)
+    val productPrice: Double) {
+}
