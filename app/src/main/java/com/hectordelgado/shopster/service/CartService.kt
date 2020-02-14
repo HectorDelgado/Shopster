@@ -18,6 +18,26 @@ object CartService {
 
     fun getCartInventory() = cartInventory
 
+    fun getListOfProducts(): List<Product> {
+        val products = mutableListOf<Product>()
+
+        cartInventory.forEach { (_, productPair) ->
+            products.add(productPair.first)
+        }
+
+        return products.toList()
+    }
+
+    fun getListOfQuantities(): List<Int> {
+        val quantities = mutableListOf<Int>()
+
+        cartInventory.forEach{ (_, productPair) ->
+            quantities.add(productPair.second)
+        }
+
+        return  quantities.toList()
+    }
+
     fun getCartInventoryForProductASIN(productASIN: String): Int? {
         return cartInventory[productASIN]?.second
     }
@@ -55,5 +75,15 @@ object CartService {
         else {
             removalIsSuccessful(false, "This item is not in your cart")
         }
+    }
+
+    fun calculateSubTotal(): Double {
+        var subtotal = 0.0
+
+        cartInventory.forEach { (_, productPair) ->
+            subtotal += (productPair.first.productPrice * productPair.second)
+        }
+
+        return subtotal
     }
 }

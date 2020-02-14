@@ -9,10 +9,10 @@ import com.hectordelgado.shopster.model.Product
  *
  *  @author Hector Delgado
  *
- *  Created on February 09, 2020.
+ *  Created on February 12, 2020.
  *  Copyright © 2020 Hector Delgado. All rights reserved.
  */
-class ProductDownloader {
+object Downloader {
     private fun getApparelProducts(): List<Product> {
         return listOf(
             Product(
@@ -246,11 +246,6 @@ class ProductDownloader {
     fun getAllCategories(): List<Category> {
         return listOf(
             Category(
-                "Apparel",
-                getProductsByCategory(Category.CATEGORY_APPAREL).random().productImages.random(),
-                Category.CATEGORY_APPAREL
-            ),
-            Category(
                 "Electronics",
                 getProductsByCategory(Category.CATEGORY_ELECTRONICS).random().productImages.random(),
                 Category.CATEGORY_ELECTRONICS
@@ -289,5 +284,4 @@ class ProductDownloader {
             else -> listOf()
         }
     }
-
 }

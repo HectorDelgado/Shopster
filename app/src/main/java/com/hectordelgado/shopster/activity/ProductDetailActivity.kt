@@ -48,11 +48,11 @@ class ProductDetailActivity : AppCompatActivity() {
             ?.let { currentProduct ->
             this.currentProduct = currentProduct
 
-            productImage.setImageResource(currentProduct.productImage)
+            productImage.setImageResource(currentProduct.productImages.random())
             productName.text = currentProduct.productName
-            val price = "$${currentProduct.productPrice}"
+            val price = "$${String.format("%.2f", currentProduct.productPrice)}"
             productPrice.text = price
-            descriptionTextView.text = currentProduct.productFullDescription
+            descriptionTextView.text = currentProduct.productDescription
         }
     }
 

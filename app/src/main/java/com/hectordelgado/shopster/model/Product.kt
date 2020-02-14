@@ -10,10 +10,9 @@ package com.hectordelgado.shopster.model
  */
 data class Product(
     val productASIN: String,
-    val productImage: Int,
-    val productFullDescription: String,
-    val productContentDescription: String,
     val productName: String,
+    val productImages: List<Int>,
+    val productDescription: String,
+    val imageContentDescription: String,
     val productRating: Float,
-    val productPrice: Double) {
-}
+    val productPrice: Double)

@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hectordelgado.shopster.*
+import com.hectordelgado.shopster.adapter.CategoryAdapter
+import com.hectordelgado.shopster.service.CategoryService
 import com.hectordelgado.shopster.service.ProductDownloader
-import com.hectordelgado.shopster.service.ProductService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.cart -> {
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
+                Intent(this, CartActivity::class.java).apply {
+                    startActivity(this)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -40,18 +41,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val productDownloader =
-            ProductDownloader()
+        val productDownloader = ProductDownloader()
 
         mRecyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = ProductRecyclerViewAdapter(productDownloader.getAllProducts()) { product, position ->
-                ProductService.setCurrentProduct(product)
-                val intent = Intent(this@MainActivity, ProductDetailActivity::class.java)
-                startActivity(intent)
+            layoutManager = GridLayoutManager(this@MainActivity, 2)
+            adapter = CategoryAdapter(
+                productDownloader.getAllCategories()
+            ) { category, position ->
+                CategoryService.setCurrentCategory(category)
+                Intent(this@MainActivity, ProductListActivity::class.java).apply {
+                    startActivity(this)
+                }
             }
-            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
         }
     }
 }
